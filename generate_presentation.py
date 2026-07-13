@@ -2,7 +2,7 @@
 """
 مولّد عرض تقديمي — الفجوات البحثية | Research Gaps  (النسخة 2)
 تصميم عصري متقدم: تدرجات لونية، ظلال ناعمة، أرقام شبحية، بطاقات حديثة.
-الخط: Sakkal Majalla (نفس خط الفيديو الأصلي).
+الخط: Segoe UI (نفس خط واجهة شات Claude؛ يتحول تلقائياً إلى SF Arabic على أجهزة Apple).
 المحتوى: الشرائح + التفريغ الصوتي الكامل لشرح الورشة.
 المحتوى العلمي الأصلي: د. هناء حسين الأهيمر (Dr. Hana Hossen Elahemer).
 """
@@ -44,7 +44,7 @@ ROSE    = RGBColor(0xBE, 0x12, 0x3C)
 EMERALD = RGBColor(0x04, 0x78, 0x57)
 NAVY    = RGBColor(0x17, 0x12, 0x3B)
 
-FONT = "Sakkal Majalla"
+FONT = "Segoe UI"   # نفس خط واجهة Claude — خط عصري نظيف بدون زوائد
 AR_DIGITS = "٠١٢٣٤٥٦٧٨٩"
 
 ACC6  = [FUCHSIA, ORANGE, TEAL, VIOLET, ROSE, EMERALD]
