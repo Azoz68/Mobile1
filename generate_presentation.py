@@ -44,7 +44,7 @@ ROSE    = RGBColor(0xBE, 0x12, 0x3C)
 EMERALD = RGBColor(0x04, 0x78, 0x57)
 NAVY    = RGBColor(0x17, 0x12, 0x3B)
 
-FONT = "Segoe UI"   # نفس خط واجهة Claude — خط عصري نظيف بدون زوائد
+FONT = "Noto Sans Arabic"   # نفس خط شات Claude للنص العربي — ومضمّن داخل الملف
 AR_DIGITS = "٠١٢٣٤٥٦٧٨٩"
 
 ACC6  = [FUCHSIA, ORANGE, TEAL, VIOLET, ROSE, EMERALD]
