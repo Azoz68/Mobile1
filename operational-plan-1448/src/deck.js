@@ -205,7 +205,7 @@ function cell(t, o = {}) {
 /* ============================================================ 5 — STAFF PARTICIPATION */
 (function staff() {
   const s = newSlide();
-  header(s, 'فريق إعداد الخطة — مشاركة الكادر', 'penline');
+  header(s, 'مشاركة الكادر في إعداد الخطة', 'penline');
   footer(s);
   rect(s, M, 1.16, CW, 0.78, { fill: { color: ICE }, line: { color: 'CBE4EA', width: 0.75 } });
   icon(s, 'info', 'teal', PW - M - 0.55, 1.4, 0.3);
@@ -370,7 +370,7 @@ function cell(t, o = {}) {
       text(s, r.d, { x: x + 1.72, y: ry, w: cw - 1.95, h: 0.4, fontSize: 8.2, color: BODY, valign: 'middle', lineSpacingMultiple: 1.02 });
       s.addShape('roundRect', { x: x + 0.86, y: ry + 0.055, w: 0.78, h: 0.29, fill: { color: MINT }, line: { color: LINE, width: 0.5 }, rectRadius: 0.06 });
       text(s, r.c, { x: x + 0.86, y: ry + 0.05, w: 0.78, h: 0.29, align: 'center', valign: 'middle', fontSize: 8, color: GREEN_DK, bold: true });
-      text(s, r.v, { x: x + 0.14, y: ry + 0.05, w: 0.66, h: 0.29, align: 'center', valign: 'middle', fontSize: 9, bold: true, color: r.v === '—' ? MUTED : TEAL });
+      text(s, r.v, { x: x + 0.14, y: ry + 0.05, w: 0.66, h: 0.29, align: 'center', valign: 'middle', fontSize: 9, bold: true, color: r.v === '……' ? MUTED : TEAL });
     });
   });
   // methodology (right) + curve (left)
@@ -415,7 +415,7 @@ function cell(t, o = {}) {
     text(s, items, { x: q.x + 0.3, y: q.y + 0.66, w: cw - 0.6, h: chh - 0.8, fontSize: 9.3, lineSpacingMultiple: 1.1 });
   });
   // strategies
-  text(s, 'الاستراتيجيات المُستنبَطة (SO · WO · ST · WT)', { x: PW - M - 6.0, y: 5.74, w: 6.0, h: 0.3, fontSize: 11, bold: true, color: INK });
+  text(s, 'الاستراتيجيات المُستنبَطة (SO، WO، ST، WT)', { x: PW - M - 6.0, y: 5.74, w: 6.0, h: 0.3, fontSize: 11, bold: true, color: INK });
   const sw = (CW - 3 * 0.24) / 4;
   D.swot.strategies.forEach((st, i) => {
     const x = PW - M - sw - i * (sw + 0.24), y = 6.12;
@@ -591,7 +591,7 @@ D.goals.forEach((G) => {
     s.addShape('roundRect', { x: M, y: 0.3, w: CW, h: 0.6, fill: { color: GREEN }, line: { type: 'none' }, rectRadius: 0.09 });
     s.addShape('roundRect', { x: M + 0.18, y: 0.415, w: 1.5, h: 0.37, fill: { color: WHITE, transparency: 86 }, line: { color: 'FFFFFF', width: 0.5, transparency: 55 }, rectRadius: 0.07 });
     text(s, 'البرامج التفصيلية', { x: M + 0.18, y: 0.405, w: 1.5, h: 0.37, align: 'center', valign: 'middle', fontSize: 9.5, bold: true, color: WHITE });
-    text(s, `الهدف الاستراتيجي العام ${G.n} — ${G.title}`, { x: 2.4, y: 0.3, w: PW - M - 2.7, h: 0.6, fontSize: 15.5, bold: true, color: WHITE, valign: 'middle' });
+    text(s, `الهدف الاستراتيجي العام ${G.n}: ${G.title}`, { x: 2.4, y: 0.3, w: PW - M - 2.7, h: 0.6, fontSize: 15.5, bold: true, color: WHITE, valign: 'middle' });
     // meta card
     const metaRows = [
       [cell('المحور الاستراتيجي', { bold: true, color: WHITE, fill: { color: GREEN_LT }, fontSize: 9 }), cell(G.axis, { align: 'right', fontSize: 9.4, bold: true, color: GREEN_DK })],
