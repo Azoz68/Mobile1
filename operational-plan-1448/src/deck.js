@@ -5,6 +5,7 @@ const path = require('path');
 const D = require('./data');
 const D2 = require('./data2');
 const D3 = require('./data3');
+const D4 = require('./data4');
 
 const A = (f) => path.resolve(__dirname, '../assets', f);
 const ICON = (n, c) => path.resolve(__dirname, '../assets/icons', `${n}_${c}.png`);
@@ -127,13 +128,13 @@ const zebra = (i) => ({ color: i % 2 ? MINT : W_ });
   const s = slide();
   head(s, 'دليل العرض', 'فهرس المحتويات');
   footer(s);
-  const cols = 3, cw = (CW - GUT * 2) / cols, rh = 0.98, y0 = 1.5;
+  const cols = 3, cw = (CW - GUT * 2) / cols, rh = 0.87, y0 = 1.44;
   D.toc.forEach((t, i) => {
     const r = Math.floor(i / cols), c = i % cols;
     const x = PW - M - cw - c * (cw + GUT), y = y0 + r * rh;
     ghost(s, String(i + 1).padStart(2, '0'), x + cw - 1.62, y - 0.02, 1.5, rh, { size: 30, color: GHOST, align: 'right' });
     T(s, pad2(i + 1), { x: x + cw - 0.74, y, w: 0.64, h: rh, align: 'right', valign: 'middle', fontSize: 12, bold: true, color: TEAL, fontFace: XB });
-    T(s, t, { x, y, w: cw - 0.88, h: rh, valign: 'middle', fontSize: 13.5, bold: true, color: INK });
+    T(s, t, { x, y, w: cw - 0.88, h: rh, valign: 'middle', fontSize: 12.5, bold: true, color: INK });
     s.addShape('line', { x, y: y + rh - 0.08, w: cw - 0.1, h: 0, line: { color: LINE, width: 0.75 } });
   });
 })();
@@ -1096,6 +1097,275 @@ const KICK4 = 'الجزء الرابع · أدوات تطوير الخطة';
   T(s, 'صوت الطالب', { x: M + 0.28, y: cy - 0.2, w: vw - 0.9, h: 0.34, fontSize: 12.5, bold: true, color: W_ });
   T(s, 'الاستبانات في الخطة الأصلية موجّهة للأولياء والكادر. إضافة قناة قياس لرأي الطالب في الأنشطة وبيئة الصف تجعل التحسين مبنيًا على المستفيد الأول منه.',
     { x: M + 0.28, y: cy + 0.2, w: vw - 0.56, h: 1.14, fontSize: 9.2, color: 'D2E4DD', lineSpacingMultiple: 1.22 });
+})();
+
+/* ============================================================ 4.8 SCHOOL CALENDAR */
+(function () {
+  const s = slide();
+  head(s, KICK4, 'التقويم الدراسي ١٤٤٨هـ لمدارس المملكة');
+  footer(s, 'التقويم الدراسي ١٤٤٨هـ');
+  const C = D4.calendar;
+  T(s, C.intro, { x: M, y: 1.08, w: CW, h: 0.44, fontSize: 10.4, color: BODY, lineSpacingMultiple: 1.2 });
+  const tw = (CW - 3 * 0.26) / 4;
+  C.tiles.forEach((t, i) => {
+    const x = PW - M - tw - i * (tw + 0.26), y = 1.62, hero = i === 0 || i === 3;
+    card(s, x, y, tw, 0.82, hero ? { fill: { color: GREEN }, line: { type: 'none' }, shadow: deep(0.18) } : { line: { color: GREEN, width: 1 } });
+    T(s, t.v, { x: x + 0.16, y: y + 0.09, w: tw - 0.32, h: 0.34, align: 'center', fontSize: hero ? 12.5 : 19, fontFace: XB, color: hero ? W_ : GREEN });
+    T(s, t.t, { x: x + 0.16, y: y + 0.46, w: tw - 0.32, h: 0.3, align: 'center', fontSize: 9, bold: true, color: hero ? 'CFE2DB' : BODY });
+  });
+  const kind = { work: MUTED, start: TEAL, holiday: 'B07C1E', end: GREEN };
+  const cw2 = [0.42, 4.85, 2.25, 2.55, 1.7, CW - 11.77];
+  const rows = [C.head.map((h) => hc(h, { fontSize: 8.8 }))];
+  C.rows.forEach((r, i) => rows.push([
+    c_(r[0], { fontSize: 8.4, fill: zebra(i) }),
+    c_(r[1], { align: 'right', fontSize: 8.8, bold: true, color: r[6] === 'holiday' ? BODY : GREEN_DK, fill: zebra(i) }),
+    c_(r[2], { fontSize: 8.4, fill: zebra(i) }),
+    c_(r[3], { fontSize: 8.4, bold: true, color: GREEN_DK, fill: zebra(i) }),
+    c_(r[4], { fontSize: 8.2, color: MUTED, fill: zebra(i) }),
+    c_(r[5], { fontSize: 8.4, bold: true, color: kind[r[6]], fill: zebra(i) }),
+  ]));
+  rtable(s, { x: M, y: 2.56, w: CW, colW: cw2, rows, opts: { rowH: [0.32, ...Array(C.rows.length).fill(0.32)] } });
+  card(s, M, 6.42, CW, 0.56, { fill: { color: ICE }, line: { color: 'CFE6EC', width: 0.75 } });
+  icon(s, 'info', 'teal', PW - M - 0.52, 6.55, 0.28);
+  T(s, C.note, { x: M + 0.26, y: 6.42, w: CW - 0.95, h: 0.56, valign: 'middle', fontSize: 9, color: '0B4A56' });
+})();
+
+/* ============================================================ 4.9 PLAN ON THE YEAR MAP */
+(function () {
+  const s = slide();
+  head(s, KICK4, 'الخطة على خارطة العام الدراسي');
+  footer(s, 'خارطة العام الدراسي');
+  const Y = D4.yearMap;
+  T(s, Y.intro, { x: M, y: 1.08, w: CW, h: 0.42, fontSize: 10.4, color: BODY, lineSpacingMultiple: 1.2 });
+  const TW = CW, XR = PW - M, N = 11;
+  const xOf = (m) => XR - (m / N) * TW;
+  const mw = TW / N;
+  // month header
+  const my = 1.66;
+  Y.months.forEach((mo, i) => {
+    const x = xOf(i + 1);
+    s.addShape('rect', { x, y: my, w: mw, h: 0.36, fill: { color: i % 2 ? MINT : W_ }, line: { color: LINE, width: 0.5 } });
+    T(s, mo, { x, y: my, w: mw, h: 0.36, align: 'center', valign: 'middle', fontSize: 8.6, bold: true, color: GREEN_DK });
+  });
+  Y.yearMark.forEach((k) => T(s, k.t, { x: xOf(k.i + 1), y: my - 0.26, w: mw, h: 0.24, align: 'center', fontSize: 8, bold: true, color: MUTED }));
+  // semester bars
+  const sy = 2.16;
+  Y.semesters.forEach((sm) => {
+    const x = xOf(sm.b), w = xOf(sm.a) - xOf(sm.b);
+    s.addShape('roundRect', { x, y: sy, w, h: 0.46, fill: { color: sm.c === 'GREEN' ? GREEN : TEAL }, line: { type: 'none' }, rectRadius: 0.06 });
+    T(s, sm.t, { x, y: sy, w, h: 0.46, align: 'center', valign: 'middle', fontSize: 10, bold: true, color: W_ });
+  });
+  // holidays
+  const hy = 2.78;
+  label(s, PW - M - 2.5, hy - 0.3, 2.5, 'الإجازات الرسمية', { fontSize: 10 });
+  Y.holidays.forEach((h) => {
+    const x = xOf(h.b), w = Math.max(0.16, xOf(h.a) - xOf(h.b));
+    s.addShape('roundRect', { x, y: hy + 0.06, w, h: 0.34, fill: { color: OLIVE }, line: { type: 'none' }, rectRadius: 0.05 });
+  });
+  Y.holidays.forEach((h, i) => {
+    const cx = (xOf(h.a) + xOf(h.b)) / 2;
+    const ly = hy + 0.44 + (i % 2) * 0.26;
+    T(s, h.t, { x: cx - 0.85, y: ly, w: 1.7, h: 0.24, align: 'center', fontSize: 7.4, bold: true, color: OLIVE_TX });
+  });
+  // monitoring rounds
+  const ry = 4.06;
+  label(s, PW - M - 2.5, ry - 0.3, 2.5, 'جولات المتابعة', { fontSize: 10 });
+  s.addShape('line', { x: M, y: ry + 0.16, w: CW, h: 0, line: { color: LINE, width: 1 } });
+  Y.rounds.forEach((r) => {
+    const x = xOf(r.x);
+    s.addShape('diamond', { x: x - 0.09, y: ry + 0.07, w: 0.18, h: 0.18, fill: { color: GOLD }, line: { type: 'none' } });
+    T(s, r.t, { x: x - 1.0, y: ry + 0.3, w: 2.0, h: 0.24, align: 'center', fontSize: 8, bold: true, color: GREEN_DK });
+    T(s, r.s, { x: x - 1.0, y: ry + 0.52, w: 2.0, h: 0.22, align: 'center', fontSize: 7.2, color: MUTED });
+  });
+  // programme peaks
+  const py = 5.06;
+  label(s, PW - M - 3.6, py - 0.3, 3.6, 'ذروة تنفيذ برامج الخطة', { fontSize: 10 });
+  Y.peaks.forEach((p, i) => {
+    const x = xOf(p.x), w = 1.9;
+    const yy = py + (i % 2) * 0.5;
+    s.addShape('roundRect', { x: x - w / 2, y: yy, w, h: 0.42, fill: { color: MINT }, line: { color: LINE, width: 0.75 }, rectRadius: 0.21 });
+    T(s, p.t, { x: x - w / 2 + 0.06, y: yy, w: w - 0.12, h: 0.42, align: 'center', valign: 'middle', fontSize: 7.4, bold: true, color: GREEN_DK });
+  });
+  // legend
+  const ly2 = 6.5, lw = 2.1;
+  Y.legend.forEach((l, i) => {
+    const x = PW - M - lw - i * (lw + 0.2);
+    const col = l.c === 'GREEN' ? GREEN : (l.c === 'OLIVE' ? OLIVE : GOLD);
+    s.addShape('roundRect', { x: x + lw - 0.3, y: ly2 + 0.08, w: 0.24, h: 0.24, fill: { color: col }, line: { type: 'none' }, rectRadius: 0.04 });
+    T(s, l.t, { x, y: ly2, w: lw - 0.4, h: 0.4, valign: 'middle', fontSize: 9, bold: true, color: BODY });
+  });
+})();
+
+/* ============================================================ DIVIDER 5 — SURVEYS */
+divider('الجزء الخامس', '05', 'الاستبانات وأدوات القياس', [
+  'منظومة الاستبانات المدرسية', 'استبانة رضا أولياء الأمور',
+  'استبانة رضا الطلاب', 'استبانة رضا منسوبي المدرسة',
+  'استبانة الاحتياجات التدريبية', 'استبانة تقويم البرنامج',
+  'بطاقة تحليل النتائج', 'مقياس ليكرت الخماسي',
+]);
+
+const KICK5 = 'الجزء الخامس · الاستبانات وأدوات القياس';
+
+/* ---------------- 5.1 SURVEY SYSTEM ---------------- */
+(function () {
+  const s = slide();
+  head(s, KICK5, 'منظومة الاستبانات المدرسية');
+  footer(s, 'منظومة الاستبانات');
+  const O = D4.surveysOverview;
+  T(s, O.intro, { x: M, y: 1.08, w: CW, h: 0.44, fontSize: 10.4, color: BODY, lineSpacingMultiple: 1.2 });
+  const cw = (CW - 4 * 0.22) / 5, ch = 1.9, cy = 1.66;
+  O.items.forEach((it, i) => {
+    const x = PW - M - cw - i * (cw + 0.22), hero = i === 0;
+    card(s, x, cy, cw, ch, hero ? { fill: { color: GREEN }, line: { type: 'none' }, shadow: deep(0.2) } : { shadow: soft(0.055) });
+    iconDisc(s, it.icon, x + cw / 2 - 0.28, cy + 0.18, 0.56, hero ? { bg: W_, fg: 'green', border: null } : {});
+    T(s, it.t, { x: x + 0.12, y: cy + 0.82, w: cw - 0.24, h: 0.46, align: 'center', valign: 'middle', fontSize: 10.5, bold: true, color: hero ? W_ : GREEN_DK, lineSpacingMultiple: 1.04 });
+    T(s, it.who, { x: x + 0.12, y: cy + 1.3, w: cw - 0.24, h: 0.22, align: 'center', fontSize: 8, color: hero ? 'CFE2DB' : MUTED });
+    T(s, it.when, { x: x + 0.12, y: cy + 1.52, w: cw - 0.24, h: 0.22, align: 'center', fontSize: 8, bold: true, color: hero ? GOLD : TEAL });
+    T(s, it.count, { x: x + 0.12, y: cy + 1.72, w: cw - 0.24, h: 0.2, align: 'center', fontSize: 7.4, color: hero ? 'A9C6BC' : MUTED });
+  });
+  // Likert scale strip
+  label(s, PW - M - 3.4, 3.78, 3.4, 'مقياس الاستجابة (ليكرت الخماسي)');
+  const sw = (CW - 4 * 0.2) / 5;
+  O.scale.forEach((sc, i) => {
+    const x = PW - M - sw - i * (sw + 0.2), y = 4.2;
+    const tone = [GREEN, '1B7F5A', 'C9A45C', 'B07C1E', 'B3261E'][i];
+    card(s, x, y, sw, 0.74, { fill: { color: MINT } });
+    s.addShape('roundRect', { x: x + sw - 0.52, y: y + 0.19, w: 0.36, h: 0.36, fill: { color: tone }, line: { type: 'none' }, rectRadius: 0.06 });
+    T(s, O.scaleVals[i], { x: x + sw - 0.52, y: y + 0.18, w: 0.36, h: 0.36, align: 'center', valign: 'middle', fontSize: 10, bold: true, color: W_ });
+    T(s, sc, { x: x + 0.16, y, w: sw - 0.76, h: 0.74, valign: 'middle', fontSize: 10, bold: true, color: GREEN_DK });
+  });
+  const rw = (CW - 2 * 0.24) / 3, ry = 5.32;
+  O.rules.forEach((r, i) => {
+    const x = PW - M - rw - i * (rw + 0.24), hero = i === 2;
+    card(s, x, ry, rw, 1.5, hero ? { fill: { color: GREEN }, line: { type: 'none' }, shadow: deep(0.2) } : { line: { color: GREEN, width: 1 } });
+    if (hero) s.addImage({ path: A('arc_white.png'), x: x + rw - 1.3, y: ry - 0.1, w: 1.4, h: 1.4, transparency: 78 });
+    T(s, r.t, { x: x + 0.24, y: ry + 0.18, w: rw - 0.48, h: 0.34, fontSize: 12, bold: true, color: hero ? W_ : GREEN_DK });
+    T(s, r.d, { x: x + 0.24, y: ry + 0.58, w: rw - 0.48, h: 0.82, fontSize: 9.2, color: hero ? 'D2E4DD' : BODY, lineSpacingMultiple: 1.2 });
+  });
+})();
+
+/* ---------------- shared form header ---------------- */
+function formHeader(s, o) {
+  card(s, M, 1.1, CW, 0.72, { fill: { color: GREEN }, line: { type: 'none' } });
+  iconDisc(s, o.icon, PW - M - 0.74, 1.24, 0.44, { bg: W_, fg: 'green', border: null });
+  T(s, [
+    { text: 'الفئة المستهدفة: ', options: { color: 'A9C6BC' } }, { text: o.who + '          ', options: { color: W_, bold: true } },
+    { text: 'موعد التطبيق: ', options: { color: 'A9C6BC' } }, { text: o.when, options: { color: GOLD, bold: true } },
+  ], { x: PW - M - 9.2, y: 1.14, w: 8.3, h: 0.3, valign: 'middle', fontSize: 9.4 });
+  T(s, o.goal, { x: PW - M - 9.2, y: 1.44, w: 8.3, h: 0.32, fontSize: 8.4, color: 'CFE2DB' });
+  if (o.fields && o.fields.length) {
+    card(s, M, 1.9, CW, 0.36, { fill: { color: MINT } });
+    const fw = (CW - 0.5) / o.fields.length;
+    o.fields.forEach((f, i) => {
+      T(s, f + '  ………………………', { x: PW - M - 0.25 - fw - i * fw, y: 1.9, w: fw, h: 0.36, valign: 'middle', fontSize: 8.8, color: GREEN_DK });
+    });
+  }
+}
+const LIKERT = D4.surveysOverview.scale;
+const likertCols = () => [0.44, CW - 0.44 - 5 * 1.06, ...Array(5).fill(1.06)];
+const likertHead = () => ['م', 'العبارة', ...LIKERT].map((h, i) => hc(h, { fontSize: i < 2 ? 9 : 8 }));
+const likertRow = (txt, i) => [
+  c_(arNum(i + 1), { fontSize: 8.6, bold: true, color: GREEN_DK, fill: zebra(i) }),
+  c_(txt, { align: 'right', fontSize: 9, fill: zebra(i) }),
+  ...Array(5).fill(0).map(() => c_('☐', { fontSize: 11, color: MUTED, fill: zebra(i) })),
+];
+
+/* ---------------- 5.2..5.4 LIKERT SURVEY FORMS ---------------- */
+function surveyForm(S) {
+  const s = slide();
+  head(s, KICK5, S.title);
+  footer(s, S.title);
+  formHeader(s, S);
+  const rows = [likertHead(), ...S.items.map(likertRow)];
+  rtable(s, { x: M, y: 2.36, w: CW, colW: likertCols(), rows, opts: { rowH: [0.36, ...Array(S.items.length).fill(0.355)] } });
+  const oy = 6.4;
+  card(s, M, oy, CW, 0.66, { fill: { color: ICE }, line: { color: 'CFE6EC', width: 0.75 } });
+  T(s, S.open, { x: M + 0.28, y: oy + 0.06, w: CW - 0.56, h: 0.28, fontSize: 10, bold: true, color: '0B4A56' });
+  T(s, '……………………………………………………………………………………………………………………………………………………………………………………………',
+    { x: M + 0.28, y: oy + 0.34, w: CW - 0.56, h: 0.28, fontSize: 9.5, color: MUTED });
+}
+D4.surveys.forEach(surveyForm);
+
+/* ---------------- 5.5 TRAINING NEEDS ---------------- */
+(function () {
+  const s = slide();
+  const Tr = D4.training;
+  head(s, KICK5, Tr.title);
+  footer(s, 'الاحتياجات التدريبية');
+  formHeader(s, { icon: Tr.icon, who: Tr.who, when: Tr.when, goal: Tr.goal, fields: ['الاسم:', 'التخصص:', 'سنوات الخدمة:'] });
+  const colW = [0.44, CW - 0.44 - 3 * 1.15 - 3.2, 1.15, 1.15, 1.15, 3.2];
+  const rows = [Tr.head.map((h, i) => hc(h, { fontSize: i === 1 ? 9 : 8.4 }))];
+  Tr.areas.forEach((a, i) => rows.push([
+    c_(arNum(i + 1), { fontSize: 8.4, bold: true, color: GREEN_DK, fill: zebra(i) }),
+    c_(a, { align: 'right', fontSize: 8.8, fill: zebra(i) }),
+    c_('☐', { fontSize: 11, color: MUTED, fill: zebra(i) }),
+    c_('☐', { fontSize: 11, color: MUTED, fill: zebra(i) }),
+    c_('☐', { fontSize: 11, color: MUTED, fill: zebra(i) }),
+    c_('', { fill: zebra(i) }),
+  ]));
+  rtable(s, { x: M, y: 2.32, w: CW, colW, rows, opts: { rowH: [0.34, ...Array(Tr.areas.length).fill(0.3)] } });
+  card(s, M, 6.4, CW, 0.6, { fill: { color: GREEN }, line: { type: 'none' } });
+  T(s, Tr.footer, { x: M + 0.3, y: 6.4, w: CW - 0.6, h: 0.6, valign: 'middle', fontSize: 9.6, bold: true, color: W_ });
+})();
+
+/* ---------------- 5.6 PROGRAM EVALUATION ---------------- */
+(function () {
+  const s = slide();
+  const P = D4.program;
+  head(s, KICK5, P.title);
+  footer(s, 'تقويم البرنامج');
+  formHeader(s, { icon: P.icon, who: P.who, when: P.when, goal: P.goal });
+  rtable(s, {
+    x: M, y: 1.92, w: CW, colW: [3.2, 3.1, 2.0, 2.2, CW - 10.5],
+    rows: [P.infoHead.map((h) => hc(h, { fontSize: 8.8 })), P.infoHead.map(() => c_('…………', { color: MUTED, fontSize: 8.6 }))],
+    opts: { rowH: [0.32, 0.36] },
+  });
+  const rows = [likertHead(), ...P.items.map(likertRow)];
+  rtable(s, { x: M, y: 2.72, w: CW, colW: likertCols(), rows, opts: { rowH: [0.36, ...Array(P.items.length).fill(0.36)] } });
+  const oy = 6.1, ow = (CW - 0.28) / 2;
+  P.opens.forEach((o, i) => {
+    const x = PW - M - ow - i * (ow + 0.28);
+    card(s, x, oy, ow, 0.94, { fill: { color: i ? MINT : ICE }, line: { color: i ? LINE : 'CFE6EC', width: 0.75 } });
+    T(s, o, { x: x + 0.24, y: oy + 0.08, w: ow - 0.48, h: 0.28, fontSize: 10, bold: true, color: i ? GREEN_DK : '0B4A56' });
+    T(s, '………………………………………………………………………', { x: x + 0.24, y: oy + 0.38, w: ow - 0.48, h: 0.26, fontSize: 9.5, color: MUTED });
+    T(s, '………………………………………………………………………', { x: x + 0.24, y: oy + 0.64, w: ow - 0.48, h: 0.26, fontSize: 9.5, color: MUTED });
+  });
+})();
+
+/* ---------------- 5.7 RESULTS ANALYSIS CARD ---------------- */
+(function () {
+  const s = slide();
+  const An = D4.analysis;
+  head(s, KICK5, An.title);
+  footer(s, 'تحليل نتائج الاستبانات');
+  T(s, An.intro, { x: M, y: 1.08, w: CW, h: 0.44, fontSize: 10.4, color: BODY, lineSpacingMultiple: 1.2 });
+  const colW = [0.44, 2.75, 1.25, 1.25, 1.5, 1.4, 1.25, 1.85, CW - 11.69];
+  const rows = [An.head.map((h) => hc(h, { fontSize: 8.4 }))];
+  An.rows.forEach((r, i) => rows.push([
+    c_(r[0], { fontSize: 8.4, fill: zebra(i) }),
+    c_(r[1], { align: 'right', fontSize: 9, bold: true, color: GREEN_DK, fill: zebra(i) }),
+    ...Array(7).fill(0).map(() => c_('', { fill: zebra(i) })),
+  ]));
+  rtable(s, { x: M, y: 1.64, w: CW, colW, rows, opts: { rowH: [0.42, ...Array(An.rows.length).fill(0.44)] } });
+  // Likert bands
+  label(s, PW - M - 4.6, 4.28, 4.6, An.scaleTitle);
+  const bw = (CW - 4 * 0.18) / 5;
+  An.scale.forEach((b, i) => {
+    const x = PW - M - bw - i * (bw + 0.18), y = 4.68;
+    card(s, x, y, bw, 0.86, { fill: { color: MINT } });
+    s.addShape('roundRect', { x: x + 0.14, y: y + 0.62, w: bw - 0.28, h: 0.1, fill: { color: b.c }, line: { type: 'none' }, rectRadius: 0.04 });
+    T(s, b.t, { x: x + 0.16, y: y + 0.08, w: bw - 0.32, h: 0.28, align: 'center', fontSize: 10.5, bold: true, color: b.c });
+    T(s, b.r, { x: x + 0.16, y: y + 0.34, w: bw - 0.32, h: 0.26, align: 'center', fontSize: 8.4, color: MUTED });
+  });
+  // 4 steps
+  const sy = 5.78, sw = (CW - 3 * 0.22) / 4;
+  An.steps.forEach((st, i) => {
+    const x = PW - M - sw - i * (sw + 0.22), hero = i === 3;
+    card(s, x, sy, sw, 1.18, hero ? { fill: { color: GREEN }, line: { type: 'none' }, shadow: deep(0.18) } : { shadow: soft(0.055) });
+    chip(s, x + sw - 0.62, sy + 0.16, 0.36, 0.36, arNum(i + 1), { fill: hero ? W_ : GREEN, color: hero ? GREEN : W_, fontSize: 10, r: 0.07 });
+    T(s, st.t, { x: x + 0.2, y: sy + 0.14, w: sw - 0.9, h: 0.4, valign: 'middle', fontSize: 11.5, bold: true, color: hero ? W_ : GREEN_DK });
+    T(s, st.d, { x: x + 0.2, y: sy + 0.58, w: sw - 0.4, h: 0.54, fontSize: 8.6, color: hero ? 'D2E4DD' : MUTED, lineSpacingMultiple: 1.16 });
+  });
 })();
 
 /* ============================================================ CLOSING */
