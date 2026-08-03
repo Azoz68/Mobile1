@@ -2,7 +2,7 @@
 
 إعادة تصميم كاملة لعرض الخطة التشغيلية المدرسية بهوية وزارة التعليم الخضراء.
 
-- **الملف النهائي:** `الخطة-التشغيلية-1448هـ.pptx` — ٧٦ شريحة، خط Tajawal مضمّن داخل الملف
+- **الملف النهائي:** `الخطة-التشغيلية-1448هـ.pptx` — ٧٦ شريحة، بخط **Segoe UI** المتوفر على كل أجهزة Windows، فلا يحتاج تثبيت أي خط ولا يظهر أي تنبيه عند الفتح
 - **معاينة:** `preview.pdf`
 
 ## بنية العرض
@@ -28,15 +28,16 @@
 نظام واحد متكرر: **حقل النقاط** المستوحى من شعار الوزارة، يظهر كأقواس نقطية على الخلفيات الداكنة وحقول متلاشية على الفاتحة.
 
 - أخضر داكن `#095242` (اللون المهيمن) · تيل `#0089A1` (التمييز) · ذهبي `#C9A45C` (لمسات على الداكن)
-- خط Tajawal (رخصة OFL) بأوزان Regular / Bold / ExtraBold
+- خط Segoe UI (مثبّت أصلًا مع Windows، بدعم عربي كامل) بوزنَي Regular وBold
 - تخطيط bento بأحجام متباينة، أرقام شبحية ضخمة، إيقاع داكن وفاتح متبادل
 
 ## إعادة البناء
 
 ```bash
 cd src && npm install pptxgenjs react-icons react react-dom sharp
-node assets.js && node assets2.js     # الخلفيات والأيقونات في ../assets
-node deck.js                          # العرض في ../out/plan_1448.pptx
-python3 optimize.py ../out/plan_1448.pptx ../out/dedup.pptx   # إزالة الصور المكررة
-python3 embed_fonts.py ../out/dedup.pptx ../out/final.pptx    # تضمين الخطوط
+node assets.js && node assets2.js                              # الخلفيات والأيقونات في ../assets
+node deck.js                                                   # العرض في ../out/plan_1448.pptx
+python3 optimize.py ../out/plan_1448.pptx ../out/final.pptx    # إزالة الصور المكررة
 ```
+
+`embed_fonts.py` متروك في المجلد للرجوع إليه فقط؛ لم يعد جزءًا من مسار البناء لأن PowerPoint على Windows يرفض تثبيت الخطوط المضمّنة بصيغة `.fntdata` الخام، فينتج عنه استبدال الخط وتشويه النص العربي.

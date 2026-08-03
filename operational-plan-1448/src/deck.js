@@ -20,8 +20,9 @@ const GHOST = 'F0F6F2';
 const GHOST_D = '0C6553';
 const W_ = 'FFFFFF';
 
-const FONT = 'Tajawal';
-const XB = 'Tajawal ExtraBold';
+// خطوط مضمونة الوجود على أجهزة Windows، فلا حاجة لتضمين خطوط ولا لتثبيت شيء
+const FONT = 'Segoe UI';
+const XB = 'Segoe UI';
 
 const PW = 13.333, PH = 7.5, M = 0.5;
 const CW = PW - 2 * M;
@@ -65,7 +66,7 @@ function chip(s, x, y, w, h, txt, o = {}) {
   T(s, txt, { x, y: y - 0.01, w, h, align: 'center', valign: 'middle', color: o.color || W_, bold: true, fontSize: o.fontSize || 10 });
 }
 function ghost(s, txt, x, y, w, h, { size = 150, color = GHOST, align = 'right' } = {}) {
-  T(s, txt, { x, y, w, h, align, valign: 'middle', fontSize: size, fontFace: XB, color });
+  T(s, txt, { x, y, w, h, align, valign: 'middle', fontSize: size, fontFace: XB, bold: true, color });
 }
 
 let pageNo = 0;
@@ -77,12 +78,12 @@ function slide(bg) {
 }
 function footer(s, label) {
   T(s, label || D.meta.footer, { x: PW - M - 5.2, y: 7.09, w: 5.2, h: 0.3, fontSize: 8, color: MUTED, align: 'right' });
-  T(s, pad2(pageNo), { x: M, y: 7.09, w: 0.9, h: 0.3, fontSize: 9, color: MUTED, align: 'left', bold: true, fontFace: XB });
+  T(s, pad2(pageNo), { x: M, y: 7.09, w: 0.9, h: 0.3, fontSize: 9, color: MUTED, align: 'left', bold: true, fontFace: XB, bold: true });
 }
 function head(s, kicker, title) {
   s.addImage({ path: A('moe_green.png'), x: M, y: 0.3, w: 0.88, h: 0.68 });
   T(s, kicker, { x: PW - M - 7.6, y: 0.34, w: 7.6, h: 0.26, fontSize: 9.5, bold: true, color: TEAL, charSpacing: 1 });
-  T(s, title, { x: PW - M - 9.4, y: 0.6, w: 9.4, h: 0.46, fontSize: 23, bold: true, color: INK, fontFace: XB });
+  T(s, title, { x: PW - M - 9.4, y: 0.6, w: 9.4, h: 0.46, fontSize: 23, bold: true, color: INK, fontFace: XB, bold: true });
 }
 function label(s, x, y, w, str, o = {}) {
   s.addShape('rect', { x: x + w - 0.09, y: y + 0.1, w: 0.09, h: 0.09, fill: { color: o.dot || TEAL }, line: { type: 'none' } });
@@ -107,7 +108,7 @@ const zebra = (i) => ({ color: i % 2 ? MINT : W_ });
   s.addShape('line', { x: PW / 2 - 1.55, y: dy, w: 1.3, h: 0, line: { color: GOLD, width: 1 } });
   s.addShape('line', { x: PW / 2 + 0.25, y: dy, w: 1.3, h: 0, line: { color: GOLD, width: 1 } });
   s.addShape('diamond', { x: PW / 2 - 0.06, y: dy - 0.06, w: 0.12, h: 0.12, fill: { color: GOLD }, line: { type: 'none' } });
-  T(s, 'الخطة التشغيلية', { x: 1.2, y: 2.4, w: PW - 2.4, h: 1.2, align: 'center', valign: 'middle', fontSize: 56, color: W_, fontFace: XB });
+  T(s, 'الخطة التشغيلية', { x: 1.2, y: 2.4, w: PW - 2.4, h: 1.2, align: 'center', valign: 'middle', fontSize: 56, color: W_, fontFace: XB, bold: true });
   T(s, 'للعام الدراسي ١٤٤٨هـ', { x: 1.2, y: 3.6, w: PW - 2.4, h: 0.56, align: 'center', valign: 'middle', fontSize: 24, color: GOLD, bold: true });
   const pw = 2.15;
   s.addShape('roundRect', { x: PW / 2 - pw / 2, y: 4.36, w: pw, h: 0.5, fill: { color: W_, transparency: 88 }, line: { color: GOLD, width: 1 }, rectRadius: 0.25 });
@@ -133,7 +134,7 @@ const zebra = (i) => ({ color: i % 2 ? MINT : W_ });
     const r = Math.floor(i / cols), c = i % cols;
     const x = PW - M - cw - c * (cw + GUT), y = y0 + r * rh;
     ghost(s, String(i + 1).padStart(2, '0'), x + cw - 1.62, y - 0.02, 1.5, rh, { size: 30, color: GHOST, align: 'right' });
-    T(s, pad2(i + 1), { x: x + cw - 0.74, y, w: 0.64, h: rh, align: 'right', valign: 'middle', fontSize: 12, bold: true, color: TEAL, fontFace: XB });
+    T(s, pad2(i + 1), { x: x + cw - 0.74, y, w: 0.64, h: rh, align: 'right', valign: 'middle', fontSize: 12, bold: true, color: TEAL, fontFace: XB, bold: true });
     T(s, t, { x, y, w: cw - 0.88, h: rh, valign: 'middle', fontSize: 12.5, bold: true, color: INK });
     s.addShape('line', { x, y: y + rh - 0.08, w: cw - 0.1, h: 0, line: { color: LINE, width: 0.75 } });
   });
@@ -146,7 +147,7 @@ function divider(kicker, num, title, items) {
   s.addImage({ path: A('moe_white.png'), x: PW - M - 1.15, y: 0.5, w: 1.15, h: 0.889 });
   ghost(s, num, M + 0.15, 1.35, 4.4, 3.6, { size: 165, color: GHOST_D, align: 'left' });
   T(s, kicker, { x: PW - M - 7.4, y: 2.28, w: 7.4, h: 0.32, fontSize: 12, bold: true, color: GOLD, charSpacing: 1.5 });
-  T(s, title, { x: PW - M - 8.8, y: 2.62, w: 8.8, h: 1.0, fontSize: 38, color: W_, fontFace: XB, valign: 'middle' });
+  T(s, title, { x: PW - M - 8.8, y: 2.62, w: 8.8, h: 1.0, fontSize: 38, color: W_, fontFace: XB, bold: true, valign: 'middle' });
   s.addShape('line', { x: PW - M - 1.9, y: 3.8, w: 1.9, h: 0, line: { color: GOLD, width: 1.25 } });
   const per = Math.ceil(items.length / 2);
   items.forEach((it, i) => {
@@ -181,7 +182,7 @@ divider('الجزء الأول', '01', 'قراءة الواقع وأدوات ا�
     const y = 1.86 + i * 1.72, hero = i === 2;
     card(s, lx, y, lw, 1.5, hero ? { fill: { color: GREEN }, line: { type: 'none' }, shadow: deep() } : { shadow: soft() });
     if (hero) s.addImage({ path: A('dots_white.png'), x: lx + 0.12, y: y + 0.72, w: 1.5, h: 1.0, transparency: 64 });
-    T(s, c.n, { x: lx + lw - 0.95, y: y + 0.14, w: 0.7, h: 0.46, align: 'center', fontSize: 20, fontFace: XB, color: hero ? GOLD : TEAL });
+    T(s, c.n, { x: lx + lw - 0.95, y: y + 0.14, w: 0.7, h: 0.46, align: 'center', fontSize: 20, fontFace: XB, bold: true, color: hero ? GOLD : TEAL });
     T(s, c.t, { x: lx + 0.32, y: y + 0.16, w: lw - 1.3, h: 0.42, fontSize: 15, bold: true, color: hero ? W_ : INK, valign: 'middle' });
     T(s, c.d, { x: lx + 0.32, y: y + 0.66, w: lw - 0.64, h: 0.72, fontSize: 11, color: hero ? 'D2E4DD' : BODY, lineSpacingMultiple: 1.22 });
   });
@@ -255,12 +256,12 @@ teamSlide();
   const hx = PW - M - heroW;
   card(s, hx, y, heroW, h, { fill: { color: GREEN }, line: { type: 'none' }, shadow: deep(0.22) });
   s.addImage({ path: A('arc_white.png'), x: hx + heroW - 1.35, y: y - 0.15, w: 1.7, h: 1.7, transparency: 70 });
-  T(s, '…………', { x: hx + 0.35, y: y + 0.26, w: heroW - 1.4, h: 0.55, fontSize: 26, color: W_, fontFace: XB });
+  T(s, '…………', { x: hx + 0.35, y: y + 0.26, w: heroW - 1.4, h: 0.55, fontSize: 26, color: W_, fontFace: XB, bold: true });
   T(s, items[0], { x: hx + 0.35, y: y + 0.9, w: heroW - 1.4, h: 0.4, fontSize: 13, bold: true, color: 'CFE2DB' });
   items.slice(1).forEach((t, i) => {
     const cx = hx - gap - restW - i * (restW + gap);
     card(s, cx, y, restW, h, { shadow: soft() });
-    T(s, '…………', { x: cx + 0.28, y: y + 0.3, w: restW - 0.56, h: 0.5, fontSize: 19, color: GREEN, fontFace: XB });
+    T(s, '…………', { x: cx + 0.28, y: y + 0.3, w: restW - 0.56, h: 0.5, fontSize: 19, color: GREEN, fontFace: XB, bold: true });
     T(s, t, { x: cx + 0.28, y: y + 0.9, w: restW - 0.56, h: 0.4, fontSize: 12, bold: true, color: BODY });
   });
 })();
@@ -305,11 +306,11 @@ teamSlide();
   card(s, PW - M - cw, y0, cw, hh, { fill: { color: GREEN }, line: { type: 'none' }, shadow: deep(0.26) });
   s.addImage({ path: A('arc_white.png'), x: PW - M - cw - 0.35, y: y0 + hh - 1.75, w: 2.1, h: 2.1, transparency: 74 });
   iconDisc(s, 'eye', PW - M - 0.98, y0 + 0.3, 0.64, { bg: W_, fg: 'green', border: null });
-  T(s, 'الرؤية', { x: PW - M - cw + 0.42, y: y0 + 0.32, w: cw - 1.6, h: 0.58, fontSize: 22, color: W_, fontFace: XB, valign: 'middle' });
+  T(s, 'الرؤية', { x: PW - M - cw + 0.42, y: y0 + 0.32, w: cw - 1.6, h: 0.58, fontSize: 22, color: W_, fontFace: XB, bold: true, valign: 'middle' });
   T(s, '«' + D.vmv.vision + '»', { x: PW - M - cw + 0.46, y: y0 + 1.06, w: cw - 0.95, h: hh - 1.3, fontSize: 13.5, color: 'E4F0EC', lineSpacingMultiple: 1.36 });
   card(s, M, y0, cw, hh, { line: { color: GREEN, width: 1 }, shadow: soft() });
   iconDisc(s, 'target', M + cw - 0.98, y0 + 0.3, 0.64);
-  T(s, 'الرسالة', { x: M + 0.42, y: y0 + 0.32, w: cw - 1.6, h: 0.58, fontSize: 22, color: GREEN_DK, fontFace: XB, valign: 'middle' });
+  T(s, 'الرسالة', { x: M + 0.42, y: y0 + 0.32, w: cw - 1.6, h: 0.58, fontSize: 22, color: GREEN_DK, fontFace: XB, bold: true, valign: 'middle' });
   T(s, '«' + D.vmv.mission + '»', { x: M + 0.46, y: y0 + 1.06, w: cw - 0.95, h: hh - 1.3, fontSize: 13, color: BODY, lineSpacingMultiple: 1.34 });
   label(s, PW - M - 2.0, 4.14, 2.0, 'القيم', { fontSize: 14 });
   const vw = (CW - 5 * 0.24) / 6;
@@ -334,7 +335,7 @@ teamSlide();
     const r = Math.floor(i / 2), c = i % 2;
     const x = PW - M - pw - c * (pw + 0.24), y = 1.88 + r * (ph + 0.2);
     card(s, x, y, pw, ph, { shadow: soft(0.055) });
-    T(s, '٠' + arNum(i + 1), { x: x + pw - 0.74, y: y + 0.15, w: 0.58, h: 0.36, align: 'center', valign: 'middle', fontSize: 13, color: TEAL, fontFace: XB });
+    T(s, '٠' + arNum(i + 1), { x: x + pw - 0.74, y: y + 0.15, w: 0.58, h: 0.36, align: 'center', valign: 'middle', fontSize: 13, color: TEAL, fontFace: XB, bold: true });
     T(s, p.t, { x: x + 0.2, y: y + 0.14, w: pw - 0.94, h: 0.4, fontSize: 10.6, bold: true, color: GREEN_DK, valign: 'middle' });
     T(s, p.d, { x: x + 0.2, y: y + 0.58, w: pw - 0.4, h: 0.44, fontSize: 8.8, color: MUTED });
   });
@@ -533,7 +534,7 @@ D4.surveys.forEach(surveyForm);
     const weak = r[6] === 'w';
     rows.push([
       c_(r[0], { align: 'right', fontSize: 8.4, bold: true, color: GREEN_DK, fill: zebra(i) }),
-      c_(r[1], { fontSize: 10.5, bold: true, fontFace: XB, color: weak ? 'B3261E' : '1B7F5A', fill: zebra(i) }),
+      c_(r[1], { fontSize: 10.5, bold: true, fontFace: XB, bold: true, color: weak ? 'B3261E' : '1B7F5A', fill: zebra(i) }),
       c_(r[2], { fontSize: 8.6, bold: true, color: weak ? 'B07C1E' : '1B7F5A', fill: zebra(i) }),
       c_(r[3], { align: 'right', fontSize: 8.4, fill: zebra(i) }),
       c_(r[4], { align: 'right', fontSize: 8.4, color: GREEN, bold: true, fill: zebra(i) }),
@@ -629,7 +630,7 @@ D4.surveys.forEach(surveyForm);
     const x = PW - M - cw - c * (cw + 0.28), y = 1.54 + r * (chh + 0.18);
     card(s, x, y, cw, chh, { shadow: soft(0.055) });
     ghost(s, arNum(i + 1), x + cw - 1.1, y + 0.05, 0.85, chh - 0.1, { size: 44, color: GHOST, align: 'right' });
-    T(s, arNum(i + 1), { x: x + cw - 0.64, y: y + 0.16, w: 0.44, h: 0.36, align: 'center', valign: 'middle', fontSize: 13, color: TEAL, fontFace: XB });
+    T(s, arNum(i + 1), { x: x + cw - 0.64, y: y + 0.16, w: 0.44, h: 0.36, align: 'center', valign: 'middle', fontSize: 13, color: TEAL, fontFace: XB, bold: true });
     T(s, it.t, { x: x + 0.24, y: y + 0.14, w: cw - 1.02, h: 0.56, fontSize: 11, bold: true, color: GREEN_DK, valign: 'middle', lineSpacingMultiple: 1.06 });
     T(s, it.d, { x: x + 0.24, y: y + 0.74, w: cw - 1.02, h: 0.5, fontSize: 8.8, color: MUTED, lineSpacingMultiple: 1.12 });
   });
@@ -673,7 +674,7 @@ divider('الجزء الثاني', '02', 'الأهداف والبرامج الت
     const pw = 1.36, x = M + 0.36 + (2 - i) * (pw + 0.16), y = by + 0.52;
     s.addShape('roundRect', { x, y, w: pw, h: 0.68, fill: { color: W_, transparency: 88 }, line: { color: W_, width: 0.75, transparency: 60 }, rectRadius: 0.08 });
     const [num, ...rest] = st.split(' ');
-    T(s, num, { x, y: y + 0.05, w: pw, h: 0.3, align: 'center', fontSize: 13, color: W_, fontFace: XB });
+    T(s, num, { x, y: y + 0.05, w: pw, h: 0.3, align: 'center', fontSize: 13, color: W_, fontFace: XB, bold: true });
     T(s, rest.join(' '), { x, y: y + 0.37, w: pw, h: 0.26, align: 'center', fontSize: 8, color: 'CFE2DB' });
   });
 })();
@@ -687,7 +688,7 @@ divider('الجزء الثاني', '02', 'الأهداف والبرامج الت
   D.quant.tiles.forEach((t, i) => {
     const x = PW - M - tw - i * (tw + 0.28), y = 1.14, hero = i % 2 === 0;
     card(s, x, y, tw, 0.94, hero ? { fill: { color: GREEN }, line: { type: 'none' }, shadow: deep(0.18) } : { line: { color: GREEN, width: 1 } });
-    T(s, t.v, { x: x + 0.2, y, w: tw * 0.4, h: 0.94, fontSize: 25, fontFace: XB, color: hero ? W_ : GREEN, valign: 'middle', align: 'center' });
+    T(s, t.v, { x: x + 0.2, y, w: tw * 0.4, h: 0.94, fontSize: 25, fontFace: XB, bold: true, color: hero ? W_ : GREEN, valign: 'middle', align: 'center' });
     T(s, t.t, { x: x + tw * 0.4, y, w: tw * 0.6 - 0.16, h: 0.94, fontSize: 11, bold: true, color: hero ? 'CFE2DB' : BODY, valign: 'middle' });
   });
   const tbw = 7.6, tx = PW - M - tbw;
@@ -727,16 +728,16 @@ ALL_GOALS.forEach((G) => {
     s.addImage({ path: A('moe_white.png'), x: M + 0.44, y: 0.55, w: 1.28, h: 0.99 });
     ghost(s, G.lat, PW - M - 2.15, 0.3, 1.95, 1.5, { size: 66, color: GHOST_D, align: 'left' });
     T(s, 'الهدف الاستراتيجي رقم ' + G.n, { x: 2.7, y: 0.52, w: PW - M - 3.1, h: 0.34, fontSize: 12, bold: true, color: GOLD });
-    T(s, G.title, { x: 2.7, y: 0.88, w: PW - M - 3.1, h: 0.68, fontSize: 22, color: W_, fontFace: XB, valign: 'middle' });
+    T(s, G.title, { x: 2.7, y: 0.88, w: PW - M - 3.1, h: 0.68, fontSize: 22, color: W_, fontFace: XB, bold: true, valign: 'middle' });
     const heroW = 4.9, gap = 0.28, rw2 = (CW - heroW - gap * 2) / 2, sy = 2.02, sh = 1.06;
     card(s, PW - M - heroW, sy, heroW, sh, { fill: { color: GREEN }, line: { type: 'none' }, shadow: deep(0.2) });
     s.addImage({ path: A('arc_white.png'), x: PW - M - 1.3, y: sy - 0.28, w: 1.6, h: 1.6, transparency: 72 });
-    T(s, G.programsCount, { x: PW - M - heroW + 0.3, y: sy, w: 1.5, h: sh, fontSize: 30, fontFace: XB, color: W_, valign: 'middle', align: 'center' });
+    T(s, G.programsCount, { x: PW - M - heroW + 0.3, y: sy, w: 1.5, h: sh, fontSize: 30, fontFace: XB, bold: true, color: W_, valign: 'middle', align: 'center' });
     T(s, 'عدد البرامج التشغيلية', { x: PW - M - heroW + 1.85, y: sy, w: heroW - 3.1, h: sh, fontSize: 12.5, bold: true, color: 'CFE2DB', valign: 'middle' });
     [[G.indicatorsCount, 'عدد مؤشرات الاعتماد المرتبطة'], [G.targetPct, 'نسبة التحقّق المستهدفة']].forEach((it, i) => {
       const x = PW - M - heroW - gap - rw2 - i * (rw2 + gap);
       card(s, x, sy, rw2, sh, { line: { color: GREEN, width: 1 }, shadow: soft(0.05) });
-      T(s, it[0], { x: x + 0.18, y: sy, w: 1.15, h: sh, fontSize: 22, fontFace: XB, color: GREEN, valign: 'middle', align: 'center' });
+      T(s, it[0], { x: x + 0.18, y: sy, w: 1.15, h: sh, fontSize: 22, fontFace: XB, bold: true, color: GREEN, valign: 'middle', align: 'center' });
       T(s, it[1], { x: x + 1.38, y: sy, w: rw2 - 1.56, h: sh, fontSize: 10.5, bold: true, color: BODY, valign: 'middle' });
     });
     label(s, PW - M - 3.7, 3.32, 3.7, 'البرامج التشغيلية ضمن هذا الهدف');
@@ -961,7 +962,7 @@ divider('الجزء الثالث', '03', 'المتابعة والحوكمة وا
   const R = D2.registerCover;
   s.addImage({ path: A('moe_white.png'), x: PW / 2 - 0.72, y: 0.72, w: 1.44, h: 1.113 });
   T(s, R.admin, { x: 1.2, y: 2.0, w: PW - 2.4, h: 0.32, align: 'center', fontSize: 12, color: 'CBDED7' });
-  T(s, R.title, { x: 1.0, y: 2.44, w: PW - 2.0, h: 1.5, align: 'center', valign: 'middle', fontSize: 40, color: W_, fontFace: XB, lineSpacingMultiple: 1.12 });
+  T(s, R.title, { x: 1.0, y: 2.44, w: PW - 2.0, h: 1.5, align: 'center', valign: 'middle', fontSize: 40, color: W_, fontFace: XB, bold: true, lineSpacingMultiple: 1.12 });
   const dy = 4.06;
   s.addShape('line', { x: PW / 2 - 1.4, y: dy, w: 1.15, h: 0, line: { color: GOLD, width: 1 } });
   s.addShape('line', { x: PW / 2 + 0.25, y: dy, w: 1.15, h: 0, line: { color: GOLD, width: 1 } });
@@ -1141,7 +1142,7 @@ const KICK4 = 'الجزء الرابع · أدوات تطوير الخطة';
   B.tiles.forEach((t, i) => {
     const x = PW - M - tw - i * (tw + 0.26), y = 1.7, hero = i === 0;
     card(s, x, y, tw, 0.86, hero ? { fill: { color: GREEN }, line: { type: 'none' }, shadow: deep(0.18) } : { line: { color: GREEN, width: 1 } });
-    T(s, t.v, { x: x + 0.18, y, w: tw * 0.42, h: 0.86, fontSize: hero ? 15 : 22, fontFace: XB, color: hero ? W_ : GREEN, valign: 'middle', align: 'center' });
+    T(s, t.v, { x: x + 0.18, y, w: tw * 0.42, h: 0.86, fontSize: hero ? 15 : 22, fontFace: XB, bold: true, color: hero ? W_ : GREEN, valign: 'middle', align: 'center' });
     T(s, t.t, { x: x + tw * 0.42, y, w: tw * 0.58 - 0.16, h: 0.86, fontSize: 9.6, bold: true, color: hero ? 'CFE2DB' : BODY, valign: 'middle', lineSpacingMultiple: 1.05 });
   });
   const prio = { 'أساسية': GREEN, 'تعزيزية': TEAL, 'اختيارية': MUTED };
@@ -1210,7 +1211,7 @@ const KICK4 = 'الجزء الرابع · أدوات تطوير الخطة';
   Db.tiles.forEach((t, i) => {
     const x = PW - M - tw - i * (tw + 0.26), y = 1.68, hero = i % 2 === 0;
     card(s, x, y, tw, 0.8, hero ? { fill: { color: GREEN }, line: { type: 'none' }, shadow: deep(0.18) } : { line: { color: GREEN, width: 1 } });
-    T(s, t.v, { x: x + 0.18, y, w: tw * 0.34, h: 0.8, fontSize: 20, fontFace: XB, color: hero ? W_ : GREEN, valign: 'middle', align: 'center' });
+    T(s, t.v, { x: x + 0.18, y, w: tw * 0.34, h: 0.8, fontSize: 20, fontFace: XB, bold: true, color: hero ? W_ : GREEN, valign: 'middle', align: 'center' });
     T(s, t.t, { x: x + tw * 0.34, y, w: tw * 0.66 - 0.16, h: 0.8, fontSize: 9.6, bold: true, color: hero ? 'CFE2DB' : BODY, valign: 'middle', lineSpacingMultiple: 1.05 });
   });
   const cw = [4.6, ...Array(4).fill((CW - 4.6) / 4)];
@@ -1313,7 +1314,7 @@ const KICK4 = 'الجزء الرابع · أدوات تطوير الخطة';
   C.tiles.forEach((t, i) => {
     const x = PW - M - tw - i * (tw + 0.26), y = 1.62, hero = i === 0 || i === 3;
     card(s, x, y, tw, 0.82, hero ? { fill: { color: GREEN }, line: { type: 'none' }, shadow: deep(0.18) } : { line: { color: GREEN, width: 1 } });
-    T(s, t.v, { x: x + 0.16, y: y + 0.09, w: tw - 0.32, h: 0.34, align: 'center', fontSize: hero ? 12.5 : 19, fontFace: XB, color: hero ? W_ : GREEN });
+    T(s, t.v, { x: x + 0.16, y: y + 0.09, w: tw - 0.32, h: 0.34, align: 'center', fontSize: hero ? 12.5 : 19, fontFace: XB, bold: true, color: hero ? W_ : GREEN });
     T(s, t.t, { x: x + 0.16, y: y + 0.46, w: tw - 0.32, h: 0.3, align: 'center', fontSize: 9, bold: true, color: hero ? 'CFE2DB' : BODY });
   });
   const kind = { work: MUTED, start: TEAL, holiday: 'B07C1E', end: GREEN };
@@ -1408,7 +1409,7 @@ const KICK4 = 'الجزء الرابع · أدوات تطوير الخطة';
   s.addShape('line', { x: PW / 2 - 1.4, y: dy, w: 1.15, h: 0, line: { color: GOLD, width: 1 } });
   s.addShape('line', { x: PW / 2 + 0.25, y: dy, w: 1.15, h: 0, line: { color: GOLD, width: 1 } });
   s.addShape('diamond', { x: PW / 2 - 0.06, y: dy - 0.06, w: 0.12, h: 0.12, fill: { color: GOLD }, line: { type: 'none' } });
-  T(s, 'بالتخطيط نصنع التميّز', { x: 1.2, y: 3.44, w: PW - 2.4, h: 0.8, align: 'center', valign: 'middle', fontSize: 36, color: W_, fontFace: XB });
+  T(s, 'بالتخطيط نصنع التميّز', { x: 1.2, y: 3.44, w: PW - 2.4, h: 0.8, align: 'center', valign: 'middle', fontSize: 36, color: W_, fontFace: XB, bold: true });
   T(s, 'وبالعمل المشترك نحقّق الأهداف', { x: 1.2, y: 4.3, w: PW - 2.4, h: 0.5, align: 'center', fontSize: 17, color: GOLD, bold: true });
   T(s, D.meta.docTitle, { x: 1.2, y: 5.5, w: PW - 2.4, h: 0.36, align: 'center', fontSize: 12, color: 'C7DCD5' });
 })();
