@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" width="1200" height="760" role="img" aria-label="ClassWhy — اسأل. تعلّم. اكتشف.">
+  <style>@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@600&amp;family=Baloo+Bhaijaan+2:wght@500&amp;display=swap');</style>
+  <rect width="1200" height="760" fill="#F7FAFF"/>
+  <g transform="translate(470 92) scale(1.3)">
+  <defs><linearGradient id="g" x1="0.2" y1="0" x2="0.8" y2="1"><stop offset="0" stop-color="#4FC3F7"/><stop offset="1" stop-color="#3B6CF6"/></linearGradient></defs>
+  <circle cx="100" cy="100" r="92" fill="#E4EEFF"/>
+  <path d="M68 72 A32 32 0 1 1 116 99.7 Q100 108 100 124" fill="none" stroke="url(#g)" stroke-width="24" stroke-linecap="round"/>
+  <path d="M97 150 Q86 143 72 146 L72 166 Q86 163 97 170 Z" fill="#3B6CF6" stroke="#3B6CF6" stroke-width="6" stroke-linejoin="round"/>
+  <path d="M103 150 Q114 143 128 146 L128 166 Q114 163 103 170 Z" fill="#3B6CF6" stroke="#3B6CF6" stroke-width="6" stroke-linejoin="round"/>
+  <path d="M150 34 Q151.5 42.5 160 44 Q151.5 45.5 150 54 Q148.5 45.5 140 44 Q148.5 42.5 150 34 Z" fill="#FFB938" stroke="#FFB938" stroke-width="2" stroke-linejoin="round"/>
+  </g>
+  <text x="600" y="482" text-anchor="middle" font-family="Fredoka, sans-serif" font-weight="600" font-size="104" fill="#1E3A6E">Class<tspan fill="#3B6CF6">Why</tspan></text>
+  <text x="600" y="560" text-anchor="middle" direction="rtl" font-family="'Baloo Bhaijaan 2', sans-serif" font-weight="500" font-size="32" fill="#5B6B8C">اسأل. تعلّم. اكتشف.</text>
+</svg>
