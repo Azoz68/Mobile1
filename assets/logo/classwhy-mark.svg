@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="512" height="512" role="img" aria-label="ClassWhy">
-  <defs><linearGradient id="g" x1="0.2" y1="0" x2="0.8" y2="1"><stop offset="0" stop-color="#4FC3F7"/><stop offset="1" stop-color="#3B6CF6"/></linearGradient></defs>
-  <circle cx="100" cy="100" r="92" fill="#E4EEFF"/>
-  <path d="M68 72 A32 32 0 1 1 116 99.7 Q100 108 100 124" fill="none" stroke="url(#g)" stroke-width="24" stroke-linecap="round"/>
-  <path d="M97 150 Q86 143 72 146 L72 166 Q86 163 97 170 Z" fill="#3B6CF6" stroke="#3B6CF6" stroke-width="6" stroke-linejoin="round"/>
-  <path d="M103 150 Q114 143 128 146 L128 166 Q114 163 103 170 Z" fill="#3B6CF6" stroke="#3B6CF6" stroke-width="6" stroke-linejoin="round"/>
-  <path d="M150 34 Q151.5 42.5 160 44 Q151.5 45.5 150 54 Q148.5 45.5 140 44 Q148.5 42.5 150 34 Z" fill="#FFB938" stroke="#FFB938" stroke-width="2" stroke-linejoin="round"/>
-</svg>
